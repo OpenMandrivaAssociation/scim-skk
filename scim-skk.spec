@@ -65,7 +65,7 @@ rm -rf $RPM_BUILD_ROOT
 %makeinstall_std
 
 # remove unneeded files
-rm -f %{buildroot}/%{_libdir}/scim-1.0/*/*.{a,la}
+rm -f %{buildroot}/%{_libdir}/scim-1.0/1.4.0/*/*.{a,la}
 
 %find_lang %{name}
 
