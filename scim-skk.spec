@@ -1,25 +1,35 @@
-%define version 0.5.2
-%define release %mkrel 4.20060803.1
+%define version	0.5.3
+%define cvs	20070802
+%if %cvs
+%define release	%mkrel 0.%cvs.1
+%else
+%define release	%mkrel 1
+%endif
 
 %define scim_version 1.4.2
 
-%define libname_orig lib%{name}
-%define libname %mklibname %{name} 0
+%define major		0
+%define libname_orig	lib%{name}
+%define libname		%mklibname %{name} %{major}
 
 Name:		scim-skk
 Summary:	Scim-skk is an SCIM IMEngine module for skk
 Version:	%{version}
 Release:	%{release}
 Group:		System/Internationalization
-License:	GPL
+License:	GPL+
 URL:		http://sourceforge.jp/projects/scim-imengine/
-Source0:	%{name}-%{version}.tar.bz2
+%if %cvs
+Source0:	%{name}-%{cvs}.tar.bz2
+%else
+Source0:	http://prdownloads.sourceforge.jp/scim-imengine/18121/%{name}-%{version}.tar.gz
+%endif
 BuildRoot:	%{_tmppath}/%{name}-%{version}-%{release}-root
-Requires:		%{libname} = %{version}
-Requires:		scim >= %{scim_version}
-Requires:		skkdic
-BuildRequires:		scim-devel >= %{scim_version}
-BuildRequires:		automake1.8, libltdl-devel
+Requires:	%{libname} = %{version}
+Requires:	scim >= %{scim_version}
+Requires:	skkdic
+BuildRequires:	scim-devel >= %{scim_version}
+BuildRequires:	automake1.8, libltdl-devel
 
 %description
 Scim-skk is an SCIM IMEngine module for skk.
@@ -36,17 +46,16 @@ scim-skk library.
 
 
 %prep
+%if %cvs
 %setup -q -n %name
-cp /usr/share/automake-1.9/mkinstalldirs .
+%else
+%setup -q
+%endif
 
 %build
-# force to regenerate ltmain.sh
-set -x
-aclocal-1.9 -I m4
-autoheader
-libtoolize -c --automake 
-automake --add-missing --copy --include-deps
-autoconf
+%if %cvs
+autoreconf -i
+%endif
 
 %configure2_5x
 %make
@@ -66,17 +75,13 @@ rm -rf $RPM_BUILD_ROOT
 %post -n %{libname} -p /sbin/ldconfig
 %postun -n %{libname} -p /sbin/ldconfig
 
-
 %files -f %{name}.lang
 %defattr(-,root,root)
-%doc AUTHORS COPYING NEWS README README.ja
+%doc AUTHORS NEWS README README.ja
 %{_datadir}/scim/icons/*
 %{_datadir}/scim/SKK/style/*.sty
 
 %files -n %{libname}
 %defattr(-,root,root)
-%doc COPYING
-%{_libdir}/scim-1.0/IMEngine/*.so
-%{_libdir}/scim-1.0/SetupUI/*.so
-
-
+%{_libdir}/scim-1.0/1.4.0/IMEngine/*.so
+%{_libdir}/scim-1.0/1.4.0/SetupUI/*.so
