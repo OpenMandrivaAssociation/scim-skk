@@ -24,7 +24,6 @@ Source0:	%{name}-%{cvs}.tar.bz2
 %else
 Source0:	http://prdownloads.sourceforge.jp/scim-imengine/18121/%{name}-%{version}.tar.gz
 %endif
-BuildRoot:	%{_tmppath}/%{name}-%{version}-%{release}-root
 Requires:	%{libname} = %{version}
 Requires:	scim >= %{scim_version}
 Requires:	skkdic
