@@ -13,7 +13,7 @@
 %define libname		%mklibname %{name} %{major}
 
 Name:		scim-skk
-Summary:	Scim-skk is an SCIM IMEngine module for skk
+Summary:	SCIM IMEngine module for skk
 Version:	%{version}
 Release:	%{release}
 Group:		System/Internationalization
