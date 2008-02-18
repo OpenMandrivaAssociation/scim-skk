@@ -3,7 +3,7 @@
 %if %cvs
 %define release	%mkrel 0.%cvs.1
 %else
-%define release	%mkrel 1
+%define release	%mkrel 2
 %endif
 
 %define scim_version 1.4.2
