@@ -24,12 +24,13 @@ Source0:	%{name}-%{cvs}.tar.bz2
 %else
 Source0:	http://prdownloads.sourceforge.jp/scim-imengine/18121/%{name}-%{version}.tar.gz
 %endif
+Patch0:		scim-skk-gcc4.3.patch
 BuildRoot:	%{_tmppath}/%{name}-%{version}-%{release}-root
 Requires:	%{libname} = %{version}
 Requires:	scim >= %{scim_version}
 Requires:	skkdic
 BuildRequires:	scim-devel >= %{scim_version}
-BuildRequires:	automake1.8, libltdl-devel
+BuildRequires:	automake, libltdl-devel
 
 %description
 Scim-skk is an SCIM IMEngine module for skk.
@@ -51,6 +52,7 @@ scim-skk library.
 %else
 %setup -q
 %endif
+%patch0 -p0
 
 %build
 %if %cvs
