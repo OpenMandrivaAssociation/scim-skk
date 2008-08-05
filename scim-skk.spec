@@ -1,16 +1,12 @@
 %define version	0.5.3
 %define cvs	20070802
 %if %cvs
-%define release	%mkrel 0.%cvs.1
+%define release	%mkrel 0.%cvs.2
 %else
 %define release	%mkrel 3
 %endif
 
 %define scim_version 1.4.2
-
-%define major		0
-%define libname_orig	lib%{name}
-%define libname		%mklibname %{name} %{major}
 
 Name:		scim-skk
 Summary:	SCIM IMEngine module for skk
@@ -26,25 +22,15 @@ Source0:	http://prdownloads.sourceforge.jp/scim-imengine/18121/%{name}-%{version
 %endif
 Patch0:		scim-skk-gcc4.3.patch
 BuildRoot:	%{_tmppath}/%{name}-%{version}-%{release}-root
-Requires:	%{libname} = %{version}
-Requires:	scim >= %{scim_version}
+Requires:	scim-client = %{scim_api}
 Requires:	skkdic
 BuildRequires:	scim-devel >= %{scim_version}
 BuildRequires:	automake, libltdl-devel
+Obsoletes:	%{mklibname scim-skk 0}
 
 %description
 Scim-skk is an SCIM IMEngine module for skk.
 It supports Japanese input.
-
-
-%package -n %{libname}
-Summary:	Scim-skk library
-Group:		System/Internationalization
-Provides:		%{libname_orig} = %{version}-%{release}
-
-%description -n %{libname}
-scim-skk library.
-
 
 %prep
 %if %cvs
@@ -86,8 +72,5 @@ rm -rf $RPM_BUILD_ROOT
 %doc AUTHORS NEWS README README.ja
 %{_datadir}/scim/icons/*
 %{_datadir}/scim/SKK/style/*.sty
-
-%files -n %{libname}
-%defattr(-,root,root)
 %{_libdir}/scim-1.0/1.4.0/IMEngine/*.so
 %{_libdir}/scim-1.0/1.4.0/SetupUI/*.so
