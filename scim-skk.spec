@@ -1,7 +1,7 @@
 %define version	0.5.3
-%define cvs	20070802
+%define cvs	20080207
 %if %cvs
-%define release	%mkrel 0.%cvs.2
+%define release	%mkrel 0.%cvs.1
 %else
 %define release	%mkrel 3
 %endif
@@ -20,7 +20,7 @@ Source0:	%{name}-%{cvs}.tar.bz2
 %else
 Source0:	http://prdownloads.sourceforge.jp/scim-imengine/18121/%{name}-%{version}.tar.gz
 %endif
-Patch0:		scim-skk-gcc4.3.patch
+Patch1:		scim-skk-fix-linkage.patch
 BuildRoot:	%{_tmppath}/%{name}-%{version}-%{release}-root
 Requires:	scim-client = %{scim_api}
 Requires:	skkdic
@@ -38,14 +38,14 @@ It supports Japanese input.
 %else
 %setup -q
 %endif
-%patch0 -p0
+%patch1 -p0
 
 %build
 %if %cvs
-autoreconf -i
+./bootstrap
 %endif
 
-%configure2_5x
+%configure2_5x --disable-rpath --disable-ltdl-install --without-included-ltdl
 %make
 
 %install
@@ -59,13 +59,6 @@ rm -f %{buildroot}/%{_libdir}/scim-1.0/1.4.0/*/*.{a,la}
 
 %clean
 rm -rf $RPM_BUILD_ROOT
-
-%if %mdkversion < 200900
-%post -n %{libname} -p /sbin/ldconfig
-%endif
-%if %mdkversion < 200900
-%postun -n %{libname} -p /sbin/ldconfig
-%endif
 
 %files -f %{name}.lang
 %defattr(-,root,root)
