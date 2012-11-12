@@ -1,0 +1,24 @@
+--- src/Makefile.am~	2006-07-24 04:25:29.000000000 +0200
++++ src/Makefile.am	2009-01-30 10:26:36.000000000 +0100
+@@ -46,8 +46,8 @@
+ skk_la_LDFLAGS = \
+ 	-avoid-version \
+ 	-module \
+-	-rpath $(moduledir) \
+-	@SCIM_LIBS@
++	-rpath $(moduledir)
++skk_la_LIBADD = @SCIM_LIBS@
+ 
+ 
+ if SCIM_BUILD_SETUP
+@@ -69,8 +69,8 @@
+ skk_imengine_setup_la_LDFLAGS = -avoid-version \
+                                 -rpath $(setupmoduledir) \
+                                 -module \
+-                                @LIBTOOL_EXPORT_OPTIONS@ \
+-                                @SCIM_GTKUTILS_LIBS@ \
++                                @LIBTOOL_EXPORT_OPTIONS@
++skk_imengine_setup_la_LIBADD =  @SCIM_GTKUTILS_LIBS@ \
+                                 @INTLLIBS@ \
+                                 @SCIM_LIBS@
+ 
