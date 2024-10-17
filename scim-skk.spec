@@ -14,7 +14,7 @@ Version:	%{version}
 Release:	%{release}
 Group:		System/Internationalization
 License:	GPL+
-URL:		http://sourceforge.jp/projects/scim-imengine/
+URL:		https://sourceforge.jp/projects/scim-imengine/
 %if %cvs
 Source0:	%{name}-%{cvs}.tar.bz2
 %else
