@@ -24,6 +24,9 @@ Patch1:		scim-skk-fix-linkage.patch
 BuildRoot:	%{_tmppath}/%{name}-%{version}-%{release}-root
 Requires:	scim-client = %{scim_api}
 Requires:	skkdic
+BuildRequires:	autoconf
+BuildRequires:	libtool-base
+BuildRequires:	slibtool
 BuildRequires:	scim-devel >= %{scim_version}
 BuildRequires:	automake, libltdl-devel
 Obsoletes:	%{mklibname scim-skk 0}
